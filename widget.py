@@ -2,33 +2,39 @@ from __future__ import annotations
 
 
 class Widget:
-    def __init__(self, x: int, y: int, height: float, width: float, parent_to: Widget):
-        self.x = x
-        self.y = y
+    def __init__(self, height: float, width: float, parent: Widget):
+        self.__x = 0
+        self.__y = 0
         self.height = height
         self.width = width
-        self.__parent_to = parent_to
+        self.__parent = parent
         self.children_list = []
 
-    def set_x(self, x):
-        self.x = x
+    @property
+    def x(self):
+        return self.__x
 
-    def get_x(self):
-        return self.x
+    @x.setter
+    def x(self, x):
+        self.__x = x
 
-    def set_y(self, y):
-        self.y = y
+    @property
+    def y(self):
+        return self.__y
 
-    def get_y(self):
-        return self.y
+    @y.setter
+    def y(self, y):
+        self.__y = y
 
-    def global_to_parent(self):
-        self.set_x(self.get_x() - self.__parent_to.get_x())
-        self.set_y(self.get_y() - self.__parent_to.get_y())
+    def global_to_parent(self, global_x: float, global_y: float):
+        x = global_x - self.__parent.x
+        y = global_y - self.__parent.y
+        return x, y
 
-    def parent_to_global(self):
-        self.set_x(self.get_x() + self.__parent_to.get_x())
-        self.set_y(self.get_y() + self.__parent_to.get_y())
+    def parent_to_global(self, x: float, y: float):
+        global_x = x + self.__parent.x
+        global_y = y + self.__parent.y
+        return global_x, global_y
 
     def handle_mouse_enter(self, event):
         pass
