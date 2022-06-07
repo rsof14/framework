@@ -2,18 +2,30 @@ import pygame
 
 
 class Window:
-    SCREEN_WIDTH = 800
-    SCREEN_HEIGHT = 800
-    Color = (0, 0, 0)
+    DEFAULT_SCREEN_WIDTH = 800
+    DEFAULT_SCREEN_HEIGHT = 800
+    DEFAULT_BACKGROUND_COLOR = (0, 0, 0)
 
     def __init__(self, title, parent):
         self.widgets = []
         self.parent = parent
-        self.window = pygame.display.set_mode((Window.SCREEN_WIDTH, Window.SCREEN_HEIGHT))
-        pygame.display.set_caption(title)
+        self.title = title
+        self.window = pygame.display.set_mode((Window.DEFAULT_SCREEN_WIDTH, Window.DEFAULT_SCREEN_HEIGHT))
+
+    @property
+    def title(self):
+        return self.__title
+
+    @title.setter
+    def title(self, new_title):
+        self.__title = new_title
+        pygame.display.set_caption(self.__title)
 
     def render(self):
-        self.window.fill(Window.Color)
-        pygame.display.flip()
+        self.window.fill(Window.DEFAULT_BACKGROUND_COLOR)
         for widget in self.widgets:
             widget.render()
+        pygame.display.flip()
+
+    def handle_event(self):
+        pass
