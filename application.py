@@ -3,10 +3,11 @@ import pygame
 from window import Window
 from event import Event
 
+pygame.init()
+
 
 class Application:
     def __init__(self):
-        pygame.init()
         self.windows = []
         self.events = []
         self.is_running = False
