@@ -57,6 +57,6 @@ class Window:
     # def handle_keydown(self, key):
     #     if key == pygame.K_BACKSPACE:
     #         return self.handle_backspace  # ???
-    #
+    # 
     # def handle_backspace(self, str):
     #     return str[0:len(str) - 2]
