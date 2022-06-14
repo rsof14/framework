@@ -18,7 +18,23 @@ class Application:
             if event.type == pygame.QUIT:
                 self.stop()
             else:
-                pass
+                if hasattr(event, "window"):
+                    actual_window = getattr(event, "window")
+                    window = None
+                    for w in self.windows:
+                        if w.window == actual_window:
+                            window = w
+                            break
+                    if event.type == pygame.WINDOWCLOSE:
+                        if window:
+                            self.windows.remove(window)
+                        actual_window.destroy()
+                    else:
+                        if window:
+                            window.handle_event(event)
+
+                if not self.windows:
+                    self.is_running = False
 
     def run(self):
         self.is_running = True
